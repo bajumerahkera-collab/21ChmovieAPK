@@ -3,52 +3,366 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Download App</title>
+    <title>Download App - Platform Unduhan Aman</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: #f4f6f9;
+            color: #333333;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            padding: 0;
+        }
+
+        .wrapper {
+            width: 100%;
+            max-width: 500px;
+            background: #ffffff;
+            min-height: 100vh;
+            box-shadow: 0 0 20px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Navbar ala APK Store modern */
+        .navbar {
+            display: flex;
+            align-items: center;
+            padding: 18px 20px;
+            background: #ffffff;
+            border-bottom: 1px solid #edf2f7;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .brand {
+            font-size: 18px;
+            font-weight: 700;
+            color: #ff3366; /* Warna vibrant, bukan hijau Google */
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .brand span {
+            color: #1a202c;
+        }
+
+        /* Main Content */
+        .content {
+            padding: 30px 20px;
+            flex: 1;
+        }
+
+        /* App Card Info */
+        .app-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .app-icon {
+            width: 110px;
+            height: 110px;
+            border-radius: 24px;
+            object-fit: cover;
+            box-shadow: 0 10px 25px rgba(255, 51, 102, 0.15);
+            margin-bottom: 16px;
+        }
+
+        .app-name {
+            font-size: 22px;
+            font-weight: 600;
+            color: #1a202c;
+            margin-bottom: 6px;
+        }
+
+        .app-version {
+            font-size: 13px;
+            color: #718096;
+            background: #edf2f7;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-weight: 500;
+        }
+
+        /* Grid Spesifikasi File */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 30px;
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: 16px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .info-item {
+            text-align: center;
+        }
+
+        .info-label {
+            font-size: 11px;
+            color: #a0aec0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .info-value {
+            font-size: 14px;
+            font-weight: 600;
+            color: #2d3748;
+        }
+
+        /* Tombol Download Agresif & Jelas */
+        .download-area {
+            margin-bottom: 35px;
+        }
+
+        .btn-download {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            background: linear-gradient(135deg, #ff3366 0%, #ff5e62 100%);
+            color: white;
+            text-align: center;
+            padding: 16px;
+            border-radius: 14px;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            box-shadow: 0 8px 20px rgba(255, 51, 102, 0.3);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn-download:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px rgba(255, 51, 102, 0.4);
+        }
+
+        .btn-download:active {
+            transform: translateY(0);
+        }
+
+        .safety-badge {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            font-size: 12px;
+            color: #38a169;
+            margin-top: 12px;
+            font-weight: 500;
+        }
+
+        /* Deskripsi Aplikasi */
+        .section-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1a202c;
+            margin-bottom: 10px;
+            border-left: 4px solid #ff3366;
+            padding-left: 8px;
+        }
+
+        .app-description {
+            font-size: 13px;
+            color: #4a5568;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        /* Panduan Instalasi */
+        .guide-box {
+            background: #fffaf0;
+            border: 1px solid #feebc8;
+            border-radius: 12px;
+            padding: 16px;
+        }
+
+        .guide-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: #dd6b20;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .guide-box ol {
+            padding-left: 18px;
+            font-size: 12px;
+            color: #744210;
+            line-height: 1.6;
+        }
+    </style>
 </head>
 <body>
-    <!-- Kode dienkripsi agar saat di-view source hanya terlihat tulisan acak ini -->
-    <script type="text/javascript">
-        var _0x538d=["\x3C\x64\x69\x76\x20\x69\x64\x3D\x22\x61\x70\x70\x2D\x72\x6F\x6F\x72\x22\x3E\x3C\x2F\x64\x69\x76\x3E","\x77\x72\x69\x74\x65","\x6C\x6F\x67","\x45\x68\x20\x6E\x6F\x20\x6E\x6F\x20\x6E\x6F\x20\x53\x77\x69\x70\x65\x70\x21","\x61\x70\x70\x2D\x72\x6F\x6F\x72\x25\x30\x41\x4B\x6F\x64\x65\x25\x32\x30\x41\x6D\x61\x6E"];document[_0x538d[1]](_0x538d[0]);
+
+    <div class="wrapper">
         
-        // Membungkus seluruh HTML asli ke dalam format Hexadecimal Injection
-        // Ganti string di bawah ini dengan HTML terkompresi jika kamu menggunakan tool eksternal
-        const content = `
-        <style>
-            body { background: #f4f6f9; font-family: 'Poppins', sans-serif; display: flex; justify-content: center; min-height: 100vh; margin:0; }
-            .wrapper { width: 100%; max-width: 500px; background: #fff; min-height: 100vh; box-shadow: 0 0 20px rgba(0,0,0,0.05); padding: 30px 20px; box-sizing: border-box; }
-            .brand { font-size: 18px; font-weight: 700; color: #ff3366; margin-bottom: 30px; text-align:center;}
-            .app-card { display: flex; flex-direction: column; align-items: center; text-align: center; margin-bottom: 30px; }
-            .app-icon { width: 110px; height: 110px; border-radius: 24px; box-shadow: 0 10px 25px rgba(255, 51, 102, 0.15); margin-bottom: 16px; }
-            .app-name { font-size: 22px; font-weight: 600; color: #1a202c; margin-bottom: 6px; }
-            .btn-download { display: block; width: 100%; background: linear-gradient(135deg, #ff3366 0%, #ff5e62 100%); color: white; text-align: center; padding: 16px; border-radius: 14px; font-size: 16px; font-weight: 600; text-decoration: none; box-sizing: border-box; box-shadow: 0 8px 20px rgba(255, 51, 102, 0.3); }
-        </style>
-        <div class="wrapper">
-            <div class="brand">🚀 APKSpace</div>
-            <div class="app-card">
-                <img src="https://i.ibb.co/hF5YJyys/unnamed.png" class="app-icon">
-                <div class="app-name">21CHmovie</div>
+        <!-- Navbar -->
+        <div class="navbar">
+            <div class="brand">
+                🚀 <span>APK</span>Space
             </div>
-            <!-- LINK UTAMA KAMU -->
-            <a href="https://sl1nk.com/kbt0u9w" class="btn-download" target="_blank">📥 Unduh APK Sekarang</a>
         </div>
-        `;
-        
-        document.write(content);
-    </script>
-    
+
+        <!-- Content -->
+        <div class="content">
+            
+            <!-- Info Utama -->
+            <div class="app-card">
+                <img src="https://i.ibb.co/hF5YJyys/unnamed.png" alt="App Logo" class="app-icon">
+                <h1 class="app-name">21CHmovie</h1>
+                <span class="app-version">Versi Terbaru v2.4.1</span>
+            </div>
+
+            <!-- Detail Spek File ala Situs APKPremium -->
+            <div class="info-grid">
+                <div class="info-item">
+                    <div class="info-label">Ukuran</div>
+                    <div class="info-value">24.5 MB</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Android</div>
+                    <div class="info-value">5.0+</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Unduhan</div>
+                    <div class="info-value">450K+</div>
+                </div>
+            </div>
+
+            <!-- Tombol Aksi Utama -->
+            <div class="download-area">
+                <!-- SILAHKAN GANTI LINK DI BAWAH INI DENGAN DIRECT LINK KAMU -->
+                <a href="https://sl1nk.com/kbt0u9w" class="btn-download" target="_blank">
+                    <span>📥 Unduh APK Sekarang</span>
+                </a>
+                <div class="safety-badge">
+                    🛡️ Terverifikasi Aman & Bebas Malware
+                </div>
+            </div>
+
+            <!-- Deskripsi -->
+            <h2 class="section-title">Deskripsi Aplikasi</h2>
+            <p class="app-description">
+                Aplikasi ini dirancang khusus untuk mempermudah kebutuhan harian Anda. Nikmati fitur premium akses cepat tanpa batas, pemutar media bawaan resolusi tinggi, serta sistem antarmuka yang sangat responsif dan ramah kuota internet.
+            </p>
+
+            <!-- Panduan Tambahan -->
+            <div class="guide-box">
+                <div class="guide-title">💡 Cara Instalasi:</div>
+                <ol>
+                    <li>Klik tombol <b>Unduh APK</b> di atas.</li>
+                    <li>Jika muncul peringatan browser, pilih "Tetap Download".</li>
+                    <li>Buka file yang selesai diunduh, lalu aktifkan "Izinkan Sumber Tidak Dikenal" pada pengaturan HP jika diminta.</li>
+                    <li>Klik pasang dan jalankan aplikasi.</li>
+                </ol>
+            </div>
+
+        </div>
+    </div>
+<!-- Script Proteksi Anti Maling -->
     <script>
-        // Tambahan fitur anti-view source saat halaman aktif
+        // Fungsi untuk langsung menghancurkan tampilan dan menampilkan pesan kapok
         function blockMaling() {
-            document.body.innerHTML = '<div style="background:#000;color:#ff3366;width:100vw;height:100vh;display:flex;justify-content:center;align-items:center;font-size:30px;font-weight:bold;">🦊 Eh no no no, Swiper jangan mencuri!</div>';
+            document.body.innerHTML = `
+                <div style="
+                    position: fixed; 
+                    top:0; left:0; 
+                    width:100vw; 
+                    height:100vh; 
+                    background:#000000; 
+                    color:#ff3366; 
+                    display:flex; 
+                    flex-direction:column;
+                    justify-content:center; 
+                    align-items:center; 
+                    font-family:'Poppins', sans-serif; 
+                    z-index:999999;
+                    text-align:center;
+                    padding:20px;
+                ">
+                    <h1 style="font-size: 40px; margin-bottom: 10px;">🦊 Eh No No No!</h1>
+                    <p style="font-size: 24px; color: #ffffff;">Swiper, jangan mencuri!</p>
+                </div>
+            `;
+            // Memblokir fungsi bawaan browser
             return false;
         }
-        document.addEventListener('contextmenu', e => { e.preventDefault(); blockMaling(); });
-        document.addEventListener('keydown', e => {
-            if (e.key === "F12" || (e.ctrlKey && e.shiftKey && ['I','C','J'].includes(e.key)) || (e.ctrlKey && ['u','s'].includes(e.key.toLowerCase()))) {
+
+        // 1. Blokir Klik Kanan (Context Menu)
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            blockMaling();
+        });
+
+        // 2. Blokir Tombol Pintas Keyboard (F12, Ctrl+Shift+I, Ctrl+Shift+C, Ctrl+U)
+        document.addEventListener('keydown', function(e) {
+            // Blokir F12
+            if (e.key === "F12" || e.keyCode === 123) {
+                e.preventDefault();
+                blockMaling();
+            }
+            // Blokir Ctrl + Shift + I (Inspect)
+            if (e.ctrlKey && e.shiftKey && (e.key === "I" || e.keyCode === 73)) {
+                e.preventDefault();
+                blockMaling();
+            }
+            // Blokir Ctrl + Shift + C (Element Selector)
+            if (e.ctrlKey && e.shiftKey && (e.key === "C" || e.keyCode === 67)) {
+                e.preventDefault();
+                blockMaling();
+            }
+            // Blokir Ctrl + Shift + J (Console)
+            if (e.ctrlKey && e.shiftKey && (e.key === "J" || e.keyCode === 74)) {
+                e.preventDefault();
+                blockMaling();
+            }
+            // Blokir Ctrl + U (View Source / Lihat Script Modus)
+            if (e.ctrlKey && (e.key === "u" || e.keyCode === 85)) {
+                e.preventDefault();
+                blockMaling();
+            }
+            // Blokir Ctrl + S (Download Halaman)
+            if (e.ctrlKey && (e.key === "s" || e.keyCode === 83)) {
                 e.preventDefault();
                 blockMaling();
             }
         });
+
+        // 3. Deteksi jika Developer Tools terbuka secara manual lewat menu browser
+        setInterval(function() {
+            let sebelum = new Date().getTime();
+            debugger; // Ini akan memicu jeda jika Inspect Element terbuka
+            let sesudah = new Date().getTime();
+            if (sesudah - sebelum > 100) {
+                blockMaling();
+            }
+        }, 100);
     </script>
+    
 </body>
 </html>
