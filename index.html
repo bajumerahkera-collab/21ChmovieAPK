@@ -284,6 +284,85 @@
 
         </div>
     </div>
+<!-- Script Proteksi Anti Maling -->
+    <script>
+        // Fungsi untuk langsung menghancurkan tampilan dan menampilkan pesan kapok
+        function blockMaling() {
+            document.body.innerHTML = `
+                <div style="
+                    position: fixed; 
+                    top:0; left:0; 
+                    width:100vw; 
+                    height:100vh; 
+                    background:#000000; 
+                    color:#ff3366; 
+                    display:flex; 
+                    flex-direction:column;
+                    justify-content:center; 
+                    align-items:center; 
+                    font-family:'Poppins', sans-serif; 
+                    z-index:999999;
+                    text-align:center;
+                    padding:20px;
+                ">
+                    <h1 style="font-size: 40px; margin-bottom: 10px;">🦊 Eh No No No!</h1>
+                    <p style="font-size: 24px; color: #ffffff;">Swiper, jangan mencuri!</p>
+                </div>
+            `;
+            // Memblokir fungsi bawaan browser
+            return false;
+        }
 
+        // 1. Blokir Klik Kanan (Context Menu)
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            blockMaling();
+        });
+
+        // 2. Blokir Tombol Pintas Keyboard (F12, Ctrl+Shift+I, Ctrl+Shift+C, Ctrl+U)
+        document.addEventListener('keydown', function(e) {
+            // Blokir F12
+            if (e.key === "F12" || e.keyCode === 123) {
+                e.preventDefault();
+                blockMaling();
+            }
+            // Blokir Ctrl + Shift + I (Inspect)
+            if (e.ctrlKey && e.shiftKey && (e.key === "I" || e.keyCode === 73)) {
+                e.preventDefault();
+                blockMaling();
+            }
+            // Blokir Ctrl + Shift + C (Element Selector)
+            if (e.ctrlKey && e.shiftKey && (e.key === "C" || e.keyCode === 67)) {
+                e.preventDefault();
+                blockMaling();
+            }
+            // Blokir Ctrl + Shift + J (Console)
+            if (e.ctrlKey && e.shiftKey && (e.key === "J" || e.keyCode === 74)) {
+                e.preventDefault();
+                blockMaling();
+            }
+            // Blokir Ctrl + U (View Source / Lihat Script Modus)
+            if (e.ctrlKey && (e.key === "u" || e.keyCode === 85)) {
+                e.preventDefault();
+                blockMaling();
+            }
+            // Blokir Ctrl + S (Download Halaman)
+            if (e.ctrlKey && (e.key === "s" || e.keyCode === 83)) {
+                e.preventDefault();
+                blockMaling();
+            }
+        });
+
+        // 3. Deteksi jika Developer Tools terbuka secara manual lewat menu browser
+        setInterval(function() {
+            let sebelum = new Date().getTime();
+            debugger; // Ini akan memicu jeda jika Inspect Element terbuka
+            let sesudah = new Date().getTime();
+            if (sesudah - sebelum > 100) {
+                blockMaling();
+            }
+        }, 100);
+    </script>
+    
 </body>
 </html>
